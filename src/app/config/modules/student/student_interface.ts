@@ -1,11 +1,13 @@
+// import { Model } from "mongoose";
+
 export type Guardian = {
   fatherName: string;
   fatherOccupation: string;
-  fatherContactNo: number;
+  fatherContactNo: string;
 
   motherName: string;
   motherOccupation: string;
-  motherContactNo: number;
+  motherContactNo: string;
 };
 
 export type UserName = {
@@ -16,22 +18,30 @@ export type UserName = {
 export type LocalGuardian = {
   name: string;
   occupation: string;
-  contactNo: number;
+  contactNo: string;
   address: string;
 };
 
 export type Student = {
   id: string;
+  password: string;
   name: UserName;
-  gender: 'male' | 'female';
+  gender: 'male' | 'female' | 'others';
   email: string;
   contactNo: string;
-  emergencyContactNo: number;
-  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'o+' | 'o-';
+  emergencyContactNo: string;
+  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | undefined;
   presentAddress: string;
   permanentAddress: string;
   guardian: Guardian;
   LocalGuardian: LocalGuardian;
-  profileImg?: string;
+  profileImg?: string | undefined;
   isActive: 'active' | 'blocked';
+  isDeleted: boolean;
 };
+
+
+// export interface StudentModelMethod extends Model<Student> {
+//   isUserExists(id: string): Promise<Student | null>
+// }
+

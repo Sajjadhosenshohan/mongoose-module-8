@@ -10,4 +10,5 @@ const IntPort = parseInt(process.env.PORT || '3000');
 exports.default = {
     port: IntPort,
     database_url: process.env.DATABASE_URL || '',
+    hash_salt_round: process.env.hash_salt_round || '',
 };
