@@ -1,15 +1,4 @@
-import { Student } from "./student_interface";
 import StudentModel from "./student_model";
-
-const createStudentInfoDB = async (student: Student)=>{
-
-    const result = await StudentModel.create(student); // build in static method
-
-    // const studentInfo = new StudentModel(student)
-    // const result = await studentInfo.save()
-
-    return result;
-}
 
 // get all student info 
 const getAllStudentsFromDB = async ()=>{
@@ -34,7 +23,6 @@ const deleteStudentInfo = async (studentId:string) =>{
 }
 
 export const StudentServices = {
-    createStudentInfoDB,
     getAllStudentsFromDB,
     getAStudentInfo,
     deleteStudentInfo

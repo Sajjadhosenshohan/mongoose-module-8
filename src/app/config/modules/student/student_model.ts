@@ -100,6 +100,11 @@ const studentSchema = new Schema<Student>({
     required: [true, 'ID is required'],
     unique: true,
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, 'User ID is required'],
+    unique: true,
+  },
   password: {
     type: String,
     required: [true, 'Password is required']
@@ -166,16 +171,20 @@ const studentSchema = new Schema<Student>({
       message: (props) => `${props.value} is not a valid URL!`,
     },
   },
-  isActive: {
-    type: String,
-    enum: ['active', 'blocked'],
-    default: 'active',
-  },
   isDeleted: {
     type: Boolean,
     default: false
   }
+}, {
+  toJSON: {
+    virtuals: true
+  }
 });
+
+// virtual
+studentSchema.virtual('fullName').get(function(){
+  return this.name.firstName + this.name.middleName + this.name.lastName
+})
 
 // pre save middleware 
 studentSchema.pre('save', async function(next){
@@ -189,6 +198,23 @@ studentSchema.pre('save', async function(next){
 // post save middleware
 studentSchema.post('save', function(doc, next){
   doc.password = '';
+  next()
+})
+
+// query middleware 
+studentSchema.pre('find', function(next){
+  this.find({isDeleted: {$ne: true}})
+  next()
+})
+
+// query middleware 
+studentSchema.pre('findOne', function(next){
+  this.find({isDeleted: {$ne: true}})
+  next()
+})
+
+studentSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({$match: {isDeleted: {$ne: true}}})
   next()
 })
 

@@ -176,6 +176,14 @@ const studentSchema = new mongoose_1.Schema({
         type: Boolean,
         default: false
     }
+}, {
+    toJSON: {
+        virtuals: true
+    }
+});
+// virtual
+studentSchema.virtual('fullName').get(function () {
+    return this.name.firstName + this.name.middleName + this.name.lastName;
 });
 // pre save middleware 
 studentSchema.pre('save', function (next) {
@@ -189,6 +197,20 @@ studentSchema.pre('save', function (next) {
 // post save middleware
 studentSchema.post('save', function (doc, next) {
     doc.password = '';
+    next();
+});
+// query middleware 
+studentSchema.pre('find', function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
+// query middleware 
+studentSchema.pre('findOne', function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
+studentSchema.pre('aggregate', function (next) {
+    this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
     next();
 });
 const StudentModel = (0, mongoose_1.model)('Student', studentSchema);
