@@ -10,8 +10,8 @@ export default [
   ...tseslint.configs.recommended,
   {
     ignores: ['node_modules', 'dist'],
-    rules: {
-      'no-unused-vars': 'error',
-    },
+    // rules: {
+    //   'no-unused-vars': 'error',
+    // },
   },
 ];

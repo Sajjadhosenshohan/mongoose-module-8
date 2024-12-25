@@ -14,12 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StudentServices = void 0;
 const student_model_1 = __importDefault(require("./student_model"));
-const createStudentInfoDB = (student) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_model_1.default.create(student); // build in static method
-    // const studentInfo = new StudentModel(student)
-    // const result = await studentInfo.save()
-    return result;
-});
 // get all student info 
 const getAllStudentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield student_model_1.default.find();
@@ -40,7 +34,6 @@ const deleteStudentInfo = (studentId) => __awaiter(void 0, void 0, void 0, funct
     return result;
 });
 exports.StudentServices = {
-    createStudentInfoDB,
     getAllStudentsFromDB,
     getAStudentInfo,
     deleteStudentInfo
