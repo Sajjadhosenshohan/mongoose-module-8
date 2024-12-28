@@ -36,9 +36,9 @@ const getAllAcademicSemester = catchAsync(
 
 const getSingleAcademicSemester = catchAsync(
     async (req,res)=>{
-        const {id} = req.params;
+        const {semesterId} = req.params;
 
-        const result = await AcademicSemseterServices.getSingleAcademicSemesterFromDB(id)
+        const result = await AcademicSemseterServices.getSingleAcademicSemesterFromDB(semesterId)
 
         sendResponse(res, {
             success: true,
@@ -50,10 +50,10 @@ const getSingleAcademicSemester = catchAsync(
 )
 const updateSingleAcademicSemester = catchAsync(
     async (req,res)=>{
-        const {id} = req.params;
+        const {semesterId} = req.params;
         const payload:Partial<TAcademicSemister> = req.body;
 
-        const result = await AcademicSemseterServices.updateAAcademicSemesterFromDB(id,payload)
+        const result = await AcademicSemseterServices.updateAAcademicSemesterFromDB(semesterId,payload)
 
         sendResponse(res, {
             success: true,

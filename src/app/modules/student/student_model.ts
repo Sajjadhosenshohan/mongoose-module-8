@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Schema, model } from 'mongoose';
 import {
   Guardian,
@@ -155,7 +156,7 @@ const studentSchema = new Schema<Student>(
       message: '{VALUE} is not a valid blood group',
     },
     dateOfBirth: {
-      type: Date
+      type: Date,
     },
     presentAddress: {
       type: String,
@@ -172,6 +173,14 @@ const studentSchema = new Schema<Student>(
     LocalGuardian: {
       type: localGuardianSchema,
       required: true,
+    },
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: "AcademicSemester"
+    },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: "AcademicDepartment"
     },
     profileImg: {
       type: String,

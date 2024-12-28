@@ -16,76 +16,42 @@ exports.StudentController = void 0;
 const student_service_1 = require("./student_service");
 const http_status_1 = __importDefault(require("http-status"));
 const sendResponse_1 = require("../../utiles/sendResponse");
-// import studentJoi_Validate_Schema from "./student_joi_validation";
+const catchAsync_1 = __importDefault(require("../../utiles/catchAsync"));
 // get all students info
-const getAllStudentsInfoController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const result = yield student_service_1.StudentServices.getAllStudentsFromDB();
-        // send response
-        // res.status(200).json({
-        //     success: true,
-        //     message: "All students info",
-        //     data: result
-        // })
-        (0, sendResponse_1.sendResponse)(res, {
-            success: true,
-            message: "All students info",
-            statusCode: http_status_1.default.OK,
-            data: result
-        });
-    }
-    catch (error) {
-        next(error);
-    }
-});
+const getAllStudentsInfoController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_service_1.StudentServices.getAllStudentsFromDB();
+    (0, sendResponse_1.sendResponse)(res, {
+        success: true,
+        message: 'All students info',
+        statusCode: http_status_1.default.OK,
+        data: result,
+    });
+}));
 // get a students info
-const getAStudentInfoController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { studentId } = req.params;
-        /* console.log(studentId)*/
-        const result = yield student_service_1.StudentServices.getAStudentInfo(studentId);
-        // send response
-        // res.status(200).json({
-        //     success: true,
-        //     message: "get a student info",
-        //     data: result
-        // })
-        (0, sendResponse_1.sendResponse)(res, {
-            success: true,
-            message: "get a student info",
-            statusCode: http_status_1.default.OK,
-            data: result
-        });
-    }
-    catch (error) {
-        next(error);
-    }
-});
+const getAStudentInfoController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { studentId } = req.params;
+    /* console.log(studentId)*/
+    const result = yield student_service_1.StudentServices.getAStudentInfo(studentId);
+    (0, sendResponse_1.sendResponse)(res, {
+        success: true,
+        message: 'get a student info',
+        statusCode: http_status_1.default.OK,
+        data: result,
+    });
+}));
 // delete  a students info
-const deleteStudentInfoController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { studentId } = req.params;
-        /* console.log(studentId)*/
-        const result = yield student_service_1.StudentServices.deleteStudentInfo(studentId);
-        // send response
-        // res.status(200).json({
-        //     success: true,
-        //     message: "delete a student info",
-        //     data: result
-        // })
-        (0, sendResponse_1.sendResponse)(res, {
-            success: true,
-            message: "delete a student info",
-            statusCode: http_status_1.default.OK,
-            data: result
-        });
-    }
-    catch (error) {
-        next(error);
-    }
-});
+const deleteStudentInfoController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { studentId } = req.params;
+    const result = yield student_service_1.StudentServices.deleteStudentInfo(studentId);
+    (0, sendResponse_1.sendResponse)(res, {
+        success: true,
+        message: 'delete a student info',
+        statusCode: http_status_1.default.OK,
+        data: result,
+    });
+}));
 exports.StudentController = {
     getAllStudentsInfoController,
     getAStudentInfoController,
-    deleteStudentInfoController
+    deleteStudentInfoController,
 };

@@ -10,5 +10,5 @@ const userValidationSchema = zod_1.z.object({
         .max(20, { message: 'Password cannot be more that 20 characters' })
 });
 exports.UserValidation = {
-    userValidationSchema,
+    userValidationSchema
 };

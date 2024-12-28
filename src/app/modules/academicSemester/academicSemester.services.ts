@@ -17,14 +17,19 @@ const getAllAcademicSemesterFromDB = () =>{
     return result
 }
 
-const getSingleAcademicSemesterFromDB = (id:string) =>{
-    const result = AcademicSemesterModel.findById({_id: id})
+const getSingleAcademicSemesterFromDB = (semesterId:string) =>{
+    const result = AcademicSemesterModel.findById({_id: semesterId})
     return result
 }
 
-const updateAAcademicSemesterFromDB = (id:string, payload:Partial<TAcademicSemister>) =>{
+const updateAAcademicSemesterFromDB = (semesterId:string, payload:Partial<TAcademicSemister>) =>{
+
+    if(payload.name && payload.code && NameCodeMapper[payload.name] !== payload.code){
+        throw new Error("Invalid semester code!")
+    }
+    
     const result = AcademicSemesterModel.findByIdAndUpdate(
-        {_id: id},
+        {_id: semesterId},
         {$set: payload},
         {new: true, runValidators: true}
     )

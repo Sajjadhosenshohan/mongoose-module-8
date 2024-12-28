@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const mongoose_1 = require("mongoose");
 const validator_1 = __importDefault(require("validator"));
 const userSchema = new mongoose_1.Schema({
@@ -141,6 +142,9 @@ const studentSchema = new mongoose_1.Schema({
         enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
         message: '{VALUE} is not a valid blood group',
     },
+    dateOfBirth: {
+        type: Date,
+    },
     presentAddress: {
         type: String,
         required: [true, 'Present address is required'],
@@ -156,6 +160,14 @@ const studentSchema = new mongoose_1.Schema({
     LocalGuardian: {
         type: localGuardianSchema,
         required: true,
+    },
+    admissionSemester: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "AcademicSemester"
+    },
+    academicDepartment: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "AcademicDepartment"
     },
     profileImg: {
         type: String,
